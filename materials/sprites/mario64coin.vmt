@@ -1,0 +1,18 @@
+"UnlitGeneric"
+{
+	"$basetexture" "sprites/mario64coin"
+	"$translucent" "0"
+	"$ignorez" "0"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+
+	"Proxies" 
+	{ 
+		"AnimatedTexture" 
+		{ 
+			"animatedTextureVar" "$basetexture" 
+			"animatedTextureFrameNumVar" "$frame" 
+			"animatedTextureFrameRate" "15" 
+		}
+	} 
+}
