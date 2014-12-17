@@ -87,11 +87,13 @@ end
 
 function ENT:PhysicsCollide(data,physobj)
 	
-	if data.Speed > 10 then
+	local zspeed =  math.abs(data.OurOldVelocity.z)
+	--print(zspeed)
+	if zspeed > 50  then
 		self:EmitSound("mario64/bestcoin.wav",75,120)
 	end
 	
-	physobj:SetVelocity(-data.HitNormal * data.OurOldVelocity:Length() * 0.75)
+	physobj:AddVelocity( (-data.HitNormal * data.OurOldVelocity:Length() * 0.5))
 	
 end
 
