@@ -84,11 +84,18 @@ end
 
 
 
---[[
+
 function ENT:PhysicsCollide(data,physobj)
-	self:CoinGrab(data.HitEntity)
+	
+	if data.Speed > 10 then
+		self:EmitSound("mario64/bestcoin.wav",75,120)
+	end
+	
+	physobj:SetVelocity(-data.HitNormal * data.OurOldVelocity:Length() * 0.75)
+	
 end
 
+--[[
 function ENT:Use(user)
 	self:CoinGrab(user)
 end
