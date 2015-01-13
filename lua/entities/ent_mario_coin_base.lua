@@ -1,3 +1,6 @@
+AddCSLuaFile()
+
+
 ENT.Type 				= "anim"
 ENT.Base 				= "base_entity"
 ENT.PrintName 			= "Base Coin"
@@ -7,8 +10,9 @@ ENT.Information 		= ""
 ENT.Spawnable 			= false
 ENT.AdminSpawnable		= false 
 ENT.Category			= "Super Mario 64"
+ENT.RenderGroup			= RENDERGROUP_TRANSLUCENT
 
-AddCSLuaFile()
+
 
 ENT.CoinColor			= Color(255,255,0)
 ENT.Worth				= 1
@@ -83,8 +87,6 @@ function ENT:Think()
 end
 
 
-
-
 function ENT:PhysicsCollide(data,physobj)
 	
 	local zspeed =  math.abs(data.OurOldVelocity.z)
@@ -96,16 +98,6 @@ function ENT:PhysicsCollide(data,physobj)
 	physobj:AddVelocity( (-data.HitNormal * data.OurOldVelocity:Length() * 0.5))
 	
 end
-
---[[
-function ENT:Use(user)
-	self:CoinGrab(user)
-end
-
-function ENT:Touch(toucher)
-	self:CoinGrab(toucher)
-end
---]]
 
 function ENT:CoinGrab(GrabEntity)
 	if GrabEntity:IsPlayer() then
@@ -132,9 +124,10 @@ end
 
 local mat = Material("sprites/mario64coin")
 
-function ENT:Draw()
+function ENT:DrawTranslucent()
 	local pos = self:GetPos()
 
 	render.SetMaterial( mat )
 	render.DrawSprite( pos, self.CoinSize, self.CoinSize, self:GetColor() )
+
 end
