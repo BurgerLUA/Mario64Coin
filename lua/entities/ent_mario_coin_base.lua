@@ -66,17 +66,28 @@ end
 
 
 function ENT:Think()
+	
 	if SERVER then
+		if self.Unicorn == true then
+			self:SetColor(Color(math.Rand(0,255),math.Rand(0,255),math.Rand(0,255)))
+		end
 	
-	if self.Unicorn == true then
+		local tracedata = {}
+		tracedata.start = self:GetPos()
+		tracedata.endpos = self:GetPos()
+		tracedata.mins = Vector( -30, -30, -30 )
+		tracedata.maxs = Vector( 30, 30, 30 )
+		tracedata.ignoreworld = true
+		
+		
 
-		self:SetColor(Color(math.Rand(0,255),math.Rand(0,255),math.Rand(0,255)))
+		
+		local tr = util.TraceHull( tracedata )
 	
-	end
-	
-	
-		local tracesettings = { start = self:GetPos(), endpos = self:GetPos(), filter = self }
-		local tr = util.TraceEntity( tracesettings , self )
+		--print(tr.Entity)
+
+		--local tracesettings = { start = self:GetPos(), endpos = self:GetPos(), filter = self }
+		--local tr = util.TraceEntity( tracedata , self )
 		
 		if tr.Hit then
 			if tr.Entity:IsPlayer() then
@@ -129,5 +140,16 @@ function ENT:DrawTranslucent()
 
 	render.SetMaterial( mat )
 	render.DrawSprite( pos, self.CoinSize, self.CoinSize, self:GetColor() )
+	
+	--[[
+	local tracedata = {}
+	tracedata.start = self:GetPos()
+	tracedata.endpos = self:GetPos()
+	tracedata.mins = Vector( -30, -30, -30 )
+	tracedata.maxs = Vector( 30, 30, 30 )
 
+	local tr = util.TraceHull( tracedata )
+	
+	render.DrawWireframeBox( tracedata.start, Angle( 0, 0, 0 ), tracedata.mins, tracedata.maxs, Color( 255, 255, 255 ), true )
+	--]]
 end
