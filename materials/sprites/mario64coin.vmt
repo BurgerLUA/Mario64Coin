@@ -3,7 +3,6 @@
 	"$basetexture" "sprites/mario64coin"
 	"$vertexcolor" "1"
 	"$vertexalpha" "1"
-	"$vertexalpha" "1"
 	
 	"Proxies" 
 	{ 
