@@ -101,7 +101,7 @@ end
 function ENT:PhysicsCollide(data,physobj)
 	
 	local zspeed =  math.abs(data.OurOldVelocity.z)
-	--print(zspeed)
+
 	if zspeed > 50  then
 		self:EmitSound("mario64/bestcoin.wav",75,120)
 	end
@@ -113,17 +113,24 @@ end
 function ENT:CoinGrab(GrabEntity)
 	if GrabEntity:IsPlayer() then
 		
+		local CountMultiplier = GetConVar("sv_mario_coins_healthmul"):GetFloat()
+		
+		local ShouldAddHealth = GrabEntity:Health() < GrabEntity:GetMaxHealth()
 		
 		if self.Worth > 1 then
 			for i=1, self.Worth do
 				timer.Simple(i*0.05 - 0.05, function () 
 					GrabEntity:EmitSound("mario64/bestcoin.wav")
-					GrabEntity:SetHealth(math.min(GrabEntity:Health() + 1 , GrabEntity:GetMaxHealth()))
+					if ShouldAddHealth then
+						GrabEntity:SetHealth(math.min(GrabEntity:Health() + 1*CountMultiplier , GrabEntity:GetMaxHealth()))
+					end
 				end)
 			end
 		else
-			GrabEntity:SetHealth(math.min(GrabEntity:Health() + 1 , GrabEntity:GetMaxHealth()))
 			GrabEntity:EmitSound("mario64/bestcoin.wav")
+			if ShouldAddHealth then
+				GrabEntity:SetHealth(math.min(GrabEntity:Health() + 1*CountMultiplier , GrabEntity:GetMaxHealth()))
+			end
 		end
 		
 		self:Remove()
